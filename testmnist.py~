@@ -7,7 +7,7 @@ import os
 
 
 # Make sure that caffe is on the python path:
-caffe_root = '../'  # this file is expected to be in {caffe_root}/examples/caffe-test-mnist-jpg/
+caffe_root = '/usr/local/caffe/'  # this file is expected to be in {caffe_root}/examples/caffe-test-mnist-jpg/
 
 sys.path.insert(0, caffe_root + 'python')
 import caffe
@@ -32,16 +32,22 @@ net.blobs['data'].reshape(2,1,28,28)
 
 
 # load image digit 
-Xdata0= caffe.io.load_image(caffe_root + 'examples/images/zero.jpg')
-Xdata1= caffe.io.load_image(caffe_root + 'examples/images/one.jpg')
-Xdata7= caffe.io.load_image(caffe_root + 'examples/images/seven.jpg')
+Xdata0= caffe.io.load_image('./images/zero.jpg')
+Xdata1= caffe.io.load_image('./images/one.jpg')
+Xdata7= caffe.io.load_image('./images/seven.jpg')
+Xdata6= caffe.io.load_image('./images/six.jpg')
+Xdata3= caffe.io.load_image('./images/three.jpg')
+Xdata4= caffe.io.load_image('./images/four.jpg')
 
 # make sure dimension is correct: 28*28*3
 print('data dim:', Xdata0.shape,Xdata1.shape)
 
+#
+temp1=Xdata4[:,:,0];
+temp=temp1.reshape(len(temp1),28,28)
 
 # feed data to the network
-net.blobs['data'].data[...] =Xdata7[:,:,0]
+net.blobs['data'].data[...] =temp;
 
 # perfrom forward operation
 out = net.forward()
